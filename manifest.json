@@ -1,0 +1,49 @@
+{
+	"manifest_version": 3,
+	"name": "Party Horn",
+	"description": "Party horn on demand!",
+	"version": "1.0.0",
+	"icons": {
+		"256": "icon.png"
+	},
+	"action": {
+		"default_icon": {
+			"32": "icon-off.png"
+		},
+		"default_title": "Toggle Horn Button"
+	},
+	"permissions": [
+		"activeTab",
+		"scripting",
+		"storage",
+		"tabs"
+	],
+	"incognito": "spanning",
+	"content_scripts": [
+		{
+			"matches": [
+				"<all_urls>"
+			],
+			"js": [
+				"horn.js"
+			],
+		"run_at": "document_end"
+		}
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"web_accessible_resources": [
+		{
+			"resources": [
+				"icon.png",
+				"icon-on.png",
+				"icon-off.png",
+				"horn.ogg"
+			],
+			"matches": [
+				"<all_urls>"
+			]
+		}
+	]
+}
