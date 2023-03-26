@@ -1,41 +1,50 @@
-// Set up the button initial element state
-const playElement = document.createElement('div');
-playElement.classList.add('party-horn-button');
-playElement.style.cssText = 'display: none; width: 50px; height: 50px; cursor: pointer; position: fixed; top: 5px; right: 5px; z-index: 99999; background: center no-repeat url(' + chrome.runtime.getURL('icon.png') + '); background-size: 100% 100%;';
-
-// Append button to HTML body
-document.body.appendChild(playElement);
-
-// Make sure to initialize the 'toggle' flag as false (i.e. extension is hidden)
-chrome.storage.local.set({ toggle: false });
-
-// Initialize horn audio
-const horn = new Audio(chrome.runtime.getURL('horn.ogg'));
-
-// Audio button event listener
-document.body.addEventListener('click', (e) => {
-	// Toggle play
-	if (e.target.classList && e.target.classList.contains('party-horn-button')) {
-		horn.currentTime = 0;
-		horn.play();
+// Check storage for the 'toggle' flag
+chrome.storage.local.get(['toggle']).then((result) => {
+	// Check if 'toggle' flag is defined, act accordingly
+	let playElementDisplay = 'none';
+	if (result.toggle === undefined) {
+		chrome.storage.local.set({ toggle: false }); // Set 'toggle' to false, playElementDisplay is already false
 	} else {
-		horn.pause();
-		horn.currentTime = 0;
+		playElementDisplay = (result.toggle) ? 'block' : 'none'; // The 'toggle' flag's already set, change playElementDisplay based on its value
 	}
-});
+	
+	// Set up the initial play element state
+	let playElementIcon = chrome.runtime.getURL('icon.png');
+	const playElement = document.createElement('div');
+	playElement.setAttribute('id', 'party-horn-button');
+	playElement.style.cssText = 'display: ' + playElementDisplay + '; width: 50px; height: 50px; cursor: pointer; position: fixed; top: 5px; right: 5px; z-index: 99999; background: center no-repeat url(' + playElementIcon + '); background-size: 100% 100%;';
 
-// ESC key event listener
-document.body.addEventListener('keyup', (e) => {
-	// Stop play if ESC is pressed
-	if (e.keyCode == 27) {
-		horn.pause();
-		horn.currentTime = 0;
-	}
+	// Append button to HTML body
+	document.body.appendChild(playElement);
+
+	// Initialize horn audio
+	const horn = new Audio(chrome.runtime.getURL('horn.ogg'));
+
+	// Audio button event listener
+	document.body.addEventListener('click', (e) => {
+		// Toggle play
+		if (e.target.hasAttribute('id') && e.target.id == 'party-horn-button') {
+			horn.currentTime = 0;
+			horn.play();
+		} else {
+			horn.pause();
+			horn.currentTime = 0;
+		}
+	});
+
+	// ESC key event listener
+	document.body.addEventListener('keyup', (e) => {
+		// Stop play if ESC is pressed
+		if (e.keyCode == 27) {
+			horn.pause();
+			horn.currentTime = 0;
+		}
+	});
 });
 
 // Storage event listener to act on 'toggle' flag changes
 chrome.storage.onChanged.addListener(function(changes, namespace){
 	if(namespace == "local" && changes.toggle) { 
-		playElement.style.display = (changes.toggle.newValue) ? "block" : "none";
+		document.getElementById('party-horn-button').style.display = (changes.toggle.newValue) ? "block" : "none";
 	}
 });
