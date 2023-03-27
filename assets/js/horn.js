@@ -12,6 +12,8 @@ chrome.storage.local.get(['toggle']).then((result) => {
 	let playElementIcon = chrome.runtime.getURL('/assets/images/icon.png');
 	const playElement = document.createElement('div');
 	playElement.setAttribute('id', 'party-horn-button');
+	playElement.setAttribute('alt', 'Party Horn');
+	playElement.setAttribute('title', 'Click here to party!');
 	playElement.style.cssText = 'display: ' + playElementDisplay + '; width: 50px; height: 50px; cursor: pointer; position: fixed; top: 5px; right: 5px; z-index: 99999; background: center no-repeat url(' + playElementIcon + '); background-size: 100% 100%;';
 
 	// Append button to HTML body

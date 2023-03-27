@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "Party Horn",
 	"description": "Party horn on demand!",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"icons": {
 		"256": "/assets/images/icon.png"
 	},
