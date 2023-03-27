@@ -15,7 +15,7 @@ chrome.action.onClicked.addListener((tab) => {
 // Storage event listener to change extension icon on 'toggle' flag changes
 chrome.storage.onChanged.addListener(function(changes, namespace){
 	if(namespace == "local" && changes.toggle) { 
-		var actionIconPath = (changes.toggle.newValue) ? "icon-on.png" : "icon-off.png";
+		var actionIconPath = (changes.toggle.newValue) ? "/assets/images/icon-on.png" : "/assets/images/icon-off.png";
 		chrome.action.setIcon({ path: actionIconPath });
 	}
 });

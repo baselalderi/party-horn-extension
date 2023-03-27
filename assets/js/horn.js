@@ -9,7 +9,7 @@ chrome.storage.local.get(['toggle']).then((result) => {
 	}
 	
 	// Set up the initial play element state
-	let playElementIcon = chrome.runtime.getURL('icon.png');
+	let playElementIcon = chrome.runtime.getURL('/assets/images/icon.png');
 	const playElement = document.createElement('div');
 	playElement.setAttribute('id', 'party-horn-button');
 	playElement.style.cssText = 'display: ' + playElementDisplay + '; width: 50px; height: 50px; cursor: pointer; position: fixed; top: 5px; right: 5px; z-index: 99999; background: center no-repeat url(' + playElementIcon + '); background-size: 100% 100%;';
@@ -18,7 +18,7 @@ chrome.storage.local.get(['toggle']).then((result) => {
 	document.body.appendChild(playElement);
 
 	// Initialize horn audio
-	const horn = new Audio(chrome.runtime.getURL('horn.ogg'));
+	const horn = new Audio(chrome.runtime.getURL('/assets/audio/horn.ogg'));
 
 	// Audio button event listener
 	document.body.addEventListener('click', (e) => {

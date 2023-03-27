@@ -4,11 +4,11 @@
 	"description": "Party horn on demand!",
 	"version": "1.0.1",
 	"icons": {
-		"256": "icon.png"
+		"256": "/assets/images/icon.png"
 	},
 	"action": {
 		"default_icon": {
-			"32": "icon-off.png"
+			"32": "/assets/images/icon-off.png"
 		},
 		"default_title": "Toggle Horn Button"
 	},
@@ -25,21 +25,21 @@
 				"<all_urls>"
 			],
 			"js": [
-				"horn.js"
+				"/assets/js/horn.js"
 			],
 		"run_at": "document_end"
 		}
 	],
 	"background": {
-		"service_worker": "background.js"
+		"service_worker": "/assets/js/background.js"
 	},
 	"web_accessible_resources": [
 		{
 			"resources": [
-				"icon.png",
-				"icon-on.png",
-				"icon-off.png",
-				"horn.ogg"
+				"/assets/images/icon.png",
+				"/assets/images/icon-on.png",
+				"/assets/images/icon-off.png",
+				"/assets/audio/horn.ogg"
 			],
 			"matches": [
 				"<all_urls>"
